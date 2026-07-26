@@ -22,7 +22,7 @@ if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL))
     exit;
 }
 
-$to = 'dmott@myrestorePT.com';
+$to = 'kylebramhall2@hotmail.com';
 $mailSubject = $subject !== ''
     ? '[Contact Form] ' . $subject
     : '[Contact Form] New message from ' . $name;
