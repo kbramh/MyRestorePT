@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta
+      name="description"
+      content="Contact Restore Physical Therapy in Puyallup, WA. Call, email, or send a message through our contact form."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contact Us - Restore Physical Therapy" />
+    <meta
+      property="og:description"
+      content="Contact Restore Physical Therapy in Puyallup, WA. Call, email, or send a message through our contact form."
+    />
+    <meta property="og:url" content="https://myrestorept.com/contact-us" />
+    <meta
+      property="og:image"
+      content="https://myrestorept.com/images/logo.jpg"
+    />
+    <title>Contact Us - Restore Physical Therapy</title>
+    <link rel="canonical" href="https://myrestorept.com/contact-us" />
+    <link rel="stylesheet" href="./css/site.css" />
+  </head>
+  <body data-page="contact">
+    <div class="bg-top" aria-hidden="true"></div>
+
+    <div id="fixed_mobile_action">
+      <div id="toppanel">
+        <div class="tab">
+          <ul class="mobile_action">
+            <li class="left">&nbsp;</li>
+            <li id="toggle">
+              <button
+                type="button"
+                id="open"
+                aria-controls="panel"
+                aria-expanded="false"
+                class="open"
+              >
+                Contact Us
+              </button>
+              <button
+                type="button"
+                id="close"
+                aria-controls="panel"
+                aria-expanded="true"
+                style="display: none"
+                class="close"
+              >
+                Close panel
+              </button>
+            </li>
+            <li class="right">&nbsp;</li>
+          </ul>
+        </div>
+        <div id="panel" aria-hidden="true">
+          <div class="panel-content">
+            <div class="icon">
+              <a href="tel:253-446-6507" class="click-phone">Call us now!</a>
+            </div>
+            <div class="icon">
+              <a href="mailto:dmott@myrestorePT.com" class="click-mail"
+                >Send us an email</a
+              >
+            </div>
+            <div class="icon">
+              <a
+                href="https://maps.google.com/?q=PO+Box+73605+Puyallup+WA+98373"
+                class="click-map"
+                target="_blank"
+                rel="noopener"
+                >Find us on the map</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-wrapper">
+      <header class="site-header">
+        <div class="header-top">
+          <a href="/index.html" class="logo">myrestorePT.com</a>
+          <nav class="main-nav" aria-label="Main navigation">
+            <ul>
+              <li>
+                <a href="/index.html" data-page="home">Home</a>
+              </li>
+              <li><a href="/faq.html" data-page="faq">FAQ</a></li>
+              <li><a href="/about-us.html" data-page="about">About Us</a></li>
+              <li>
+                <a href="/contact-us.html" data-page="contact">Contact Us</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="header-image">
+          <img src="images/logo.jpg" alt="Restore Physical Therapy logo" />
+        </div>
+        <searchBar class="search-bar"></searchBar>
+      </header>
+
+      <main>
+        <section class="contact-info">
+          <p>PO Box 73605</p>
+          <p>Puyallup, WA 98373</p>
+          <p>Office: 253-446-6507<br />Fax: 253-446-6194</p>
+          <p>
+            Email:
+            <a href="mailto:dmott@myrestorePT.com">dmott@myrestorePT.com</a>
+          </p>
+          <p class="contact-divider">
+            ______________________________________________
+          </p>
+        </section>
+
+        <div
+          id="contact-form-status"
+          class="contact-form-status"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <form
+          class="contact-form"
+          id="contact-form"
+          action="contact-handler.php"
+          method="post"
+        >
+          <ul>
+            <li>
+              <label for="name" class="required">Name</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                maxlength="255"
+                required
+              />
+            </li>
+            <li>
+              <label for="subject">Subject</label>
+              <input type="text" name="subject" id="subject" maxlength="255" />
+            </li>
+            <li>
+              <label for="phone">Phone</label>
+              <input type="tel" name="phone" id="phone" maxlength="255" />
+            </li>
+            <li>
+              <label for="email" class="required">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                maxlength="255"
+                required
+              />
+            </li>
+            <li>
+              <label for="message">Message</label>
+              <textarea name="message" id="message" rows="5"></textarea>
+            </li>
+          </ul>
+          <button type="submit" class="buttons">Send</button>
+        </form>
+      </main>
+
+      <footer class="site-footer">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <ul>
+            <li>
+              <a href="/index.html" data-page="home">Home</a>
+            </li>
+            <li><a href="/faq.html" data-page="faq">FAQ</a></li>
+            <li><a href="/about-us.html" data-page="about">About Us</a></li>
+            <li>
+              <a href="/contact-us.html" data-page="contact">Contact Us</a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "LocalBusiness",
+        "url": "https://myrestorept.com",
+        "name": "Restore Physical Therapy",
+        "email": "dmott@myrestorePT.com",
+        "telephone": "253-446-6507",
+        "faxNumber": "253-446-6194",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "PO Box 73605",
+          "addressLocality": "Puyallup",
+          "addressRegion": "WA",
+          "postalCode": "98373",
+          "addressCountry": "US"
+        }
+      }
+    </script>
+    <script src="./js/site.js"></script>
+    <script src="./js/search-index.js"></script>
+    <script src="./js/search-bar.js"></script>
+  </body>
+</html>
