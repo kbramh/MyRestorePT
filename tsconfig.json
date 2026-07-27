@@ -1,5 +1,4 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
@@ -21,3 +20,5 @@
   },
   "include": ["src/**/*"]
 }
+
+// Visit https://aka.ms/tsconfig to read more about this file
