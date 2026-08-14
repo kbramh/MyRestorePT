@@ -1,3 +1,5 @@
+import { SEARCH_INDEX } from './search-index.js';
+
 const searchBarPanel = `
         <div class="search-bar-form">
          <input class="search-bar-input" type="text" id="search" placeholder="Search..." aria-label="Search site content" />
@@ -8,7 +10,7 @@ const searchBarPanel = `
 
 const searchBarElement = document.querySelector('searchBar');
 
-searchBarElement.innerHTML = searchBarPanel;
+searchBarElement!.innerHTML = searchBarPanel;
 
 function getCurrentPage() {
   const path = window.location.pathname;
@@ -20,11 +22,11 @@ function getCurrentPage() {
   return file || 'index.html';
 }
 
-function escapeRegExp(value) {
+function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function buildSearchPattern(query) {
+function buildSearchPattern(query: string) {
   const words = query.trim().split(/\s+/).filter(Boolean);
 
   if (!words.length) {
@@ -32,13 +34,17 @@ function buildSearchPattern(query) {
   }
 
   if (words.length === 1) {
-    return new RegExp(escapeRegExp(words[0]), 'i');
+    const word = words[0];
+    if (!word) {
+      return null;
+    }
+    return new RegExp(escapeRegExp(word), 'i');
   }
 
   return new RegExp(words.map(escapeRegExp).join('\\s+'), 'i');
 }
 
-function textMatchesQuery(query, text) {
+function textMatchesQuery(query: string, text: string) {
   const pattern = buildSearchPattern(query);
   return pattern ? pattern.test(text) : false;
 }
@@ -46,31 +52,42 @@ function textMatchesQuery(query, text) {
 function clearHighlights() {
   document.querySelectorAll('mark.search-highlight').forEach((mark) => {
     const parent = mark.parentNode;
-    parent.replaceChild(document.createTextNode(mark.textContent), mark);
-    parent.normalize();
+    parent?.replaceChild(document.createTextNode(mark.textContent), mark);
+    parent?.normalize();
   });
 }
 
-function setSearchStatus(message) {
+function setSearchStatus(message: string) {
   const status = document.querySelector('.search-bar-status');
   if (status) {
     status.textContent = message;
   }
 }
 
-function getMainTextSegments(main) {
+type TextSegment = {
+  node: Text;
+  start: number;
+  end: number;
+  text: string;
+};
+
+function getMainTextSegments(main: HTMLElement): TextSegment[] {
   const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
-  const segments = [];
+  const segments: TextSegment[] = [];
   let offset = 0;
 
   while (walker.nextNode()) {
     const node = walker.currentNode;
 
-    if (node.parentNode?.closest('mark.search-highlight')) {
+    if (!(node instanceof Text)) {
       continue;
     }
 
-    const text = node.textContent;
+    if (node.parentElement?.closest('mark.search-highlight')) {
+      continue;
+    }
+
+    const text = node.textContent ?? '';
     segments.push({
       node,
       start: offset,
@@ -83,8 +100,8 @@ function getMainTextSegments(main) {
   return segments;
 }
 
-function wrapTextNodeMatch(node, localStart, localEnd) {
-  const text = node.textContent;
+function wrapTextNodeMatch(node: Text, localStart: number, localEnd: number) {
+  const text = node.textContent ?? '';
   const before = text.slice(0, localStart);
   const highlighted = text.slice(localStart, localEnd);
   const after = text.slice(localEnd);
@@ -110,7 +127,7 @@ function wrapTextNodeMatch(node, localStart, localEnd) {
   return mark;
 }
 
-function highlightAndScroll(query) {
+function highlightAndScroll(query: string) {
   clearHighlights();
 
   const trimmedQuery = query.trim();
@@ -151,10 +168,13 @@ function highlightAndScroll(query) {
     return false;
   }
 
-  let firstMark = null;
+  let firstMark: HTMLElement | null = null;
 
   for (let index = affectedSegments.length - 1; index >= 0; index -= 1) {
     const segment = affectedSegments[index];
+    if (!segment) {
+      continue;
+    }
     const localStart = Math.max(0, matchStart - segment.start);
     const localEnd = Math.min(segment.text.length, matchEnd - segment.start);
     const mark = wrapTextNodeMatch(segment.node, localStart, localEnd);
@@ -165,10 +185,10 @@ function highlightAndScroll(query) {
   }
 
   firstMark?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  return Boolean(firstMark);
+  return firstMark !== null;
 }
 
-function findSearchMatch(query) {
+function findSearchMatch(query: string) {
   const trimmedQuery = query.trim();
   if (!trimmedQuery) {
     return null;
@@ -195,7 +215,7 @@ function findSearchMatch(query) {
   return { page: otherPageMatch.page, query: trimmedQuery };
 }
 
-function runSearch(query) {
+function runSearch(query: string) {
   const match = findSearchMatch(query);
 
   if (!match) {
@@ -222,10 +242,11 @@ function runSearch(query) {
   window.location.href = searchUrl;
 }
 
-const input = searchBarElement.querySelector('.search-bar-input');
-const button = searchBarElement.querySelector('.search-bar-button');
+const input =
+  searchBarElement!.querySelector<HTMLInputElement>('.search-bar-input')!;
+const button = searchBarElement!.querySelector('.search-bar-button');
 
-button.addEventListener('click', () => {
+button!.addEventListener('click', () => {
   runSearch(input.value);
 });
 
