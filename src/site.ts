@@ -2,9 +2,9 @@
   'use strict';
 
   /* Mobile contact panel toggle */
-  var openBtn = document.getElementById('open');
-  var closeBtn = document.getElementById('close');
-  var panel = document.getElementById('panel');
+  var openBtn = document.getElementById('open')!;
+  var closeBtn = document.getElementById('close')!;
+  var panel = document.getElementById('panel')!;
 
   if (openBtn && closeBtn && panel) {
     openBtn.addEventListener('click', function () {
@@ -33,7 +33,7 @@
       invalid: 'Please enter your name and a valid email address.',
     };
 
-    if (messages[status]) {
+    if (status === 'sent' || status === 'error' || status === 'invalid') {
       contactStatus.textContent = messages[status];
       contactStatus.className =
         'contact-form-status contact-form-status--' + status;
