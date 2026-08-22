@@ -1,7 +1,7 @@
 /* Restore Physical Therapy — shared site styles
    Color palette matched to myrestorept.com template (style.min.css) */
 
-@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   /* Template / skin colors (style.min.css) */
@@ -24,9 +24,10 @@
   --color-faq: #0033ff;
 
   --max-width: 960px;
-  --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-heading: 'Arvo', Georgia, serif;
-  --font-logo: 'Comic Sans MS', cursive, sans-serif;
+  --font: 'Source Sans 3', Helvetica, Arial, sans-serif;
+  --font-body: var(--font);
+  --font-heading: var(--font);
+  --font-logo: var(--font);
 }
 
 *,
@@ -572,7 +573,7 @@ main {
   padding: 6px 24px;
   font-size: 15px;
   font-weight: bold;
-  font-family: Arial, sans-serif;
+  font-family: var(--font);
   border-radius: 6px;
   cursor: pointer;
   box-shadow: 0 0 5px #000;
