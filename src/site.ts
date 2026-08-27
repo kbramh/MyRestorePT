@@ -41,18 +41,16 @@
     }
   }
 
-  //ask Zach if the code for the user review carousel should be on the same file as the toggle mobile panel feature.
   var reviews = document.querySelector('.reviews');
   if (reviews) {
-    var root = reviews;
-    var slides = document.querySelectorAll<HTMLElement>('.review-slide');
+    const slides = document.querySelectorAll<HTMLElement>('.review-slide');
     var reduceMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches;
-    var index = 0;
-    var paused = false;
-    var timer: ReturnType<typeof setInterval> | undefined;
-    //this function doesn't make sense
+    let index = 0;
+    let paused = false;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
     function showSlide(i: number) {
       var current = slides[index];
       if (current) {
@@ -84,25 +82,21 @@
       }, 30000);
     }
 
-    slides.forEach(function (slide, i) {
-      slide.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
-    });
-
-    root.addEventListener('mouseenter', function () {
+    reviews.addEventListener('mouseenter', function () {
       paused = true;
       stopCarousel();
     });
-    root.addEventListener('mouseleave', function () {
+    reviews.addEventListener('mouseleave', function () {
       paused = false;
       startCarousel();
     });
-    root.addEventListener('focusin', function () {
+    reviews.addEventListener('focusin', function () {
       paused = true;
       stopCarousel();
     });
-    root.addEventListener('focusout', function (event) {
+    reviews.addEventListener('focusout', function (event) {
       var nextTarget = (event as FocusEvent).relatedTarget;
-      if (nextTarget instanceof Node && root.contains(nextTarget)) {
+      if (nextTarget instanceof Node && reviews!.contains(nextTarget)) {
         return;
       }
       paused = false;
@@ -123,13 +117,7 @@
   /* Highlight current page in navigation */
   var currentPage = document.body.getAttribute('data-page');
   if (currentPage) {
-    var navLinks = document.querySelectorAll(
-      '.main-nav a[data-page="' +
-        currentPage +
-        '"], .footer-nav a[data-page="' +
-        currentPage +
-        '"]',
-    );
+    const navLinks = document.querySelectorAll(`.main-nav a[data-page="${currentPage}"], .footer-nav a[data-page="${currentPage}"]`)
     navLinks.forEach(function (link) {
       link.classList.add('is-current');
     });
