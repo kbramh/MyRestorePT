@@ -41,6 +41,85 @@
     }
   }
 
+  //ask Zach if the code for the user review carousel should be on the same file as the toggle mobile panel feature.
+  var reviews = document.querySelector('.reviews');
+  if (reviews) {
+    var root = reviews;
+    var slides = document.querySelectorAll<HTMLElement>('.review-slide');
+    var reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    var index = 0;
+    var paused = false;
+    var timer: ReturnType<typeof setInterval> | undefined;
+    //this function doesn't make sense
+    function showSlide(i: number) {
+      var current = slides[index];
+      if (current) {
+        current.classList.remove('is-active');
+        current.setAttribute('aria-hidden', 'true');
+      }
+      index = (i + slides.length) % slides.length;
+      var nextSlide = slides[index];
+      if (nextSlide) {
+        nextSlide.classList.add('is-active');
+        nextSlide.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function stopCarousel() {
+      if (timer !== undefined) {
+        clearInterval(timer);
+        timer = undefined;
+      }
+    }
+
+    function startCarousel() {
+      if (reduceMotion || slides.length < 2 || paused) {
+        return;
+      }
+      stopCarousel();
+      timer = setInterval(function () {
+        showSlide(index + 1);
+      }, 30000);
+    }
+
+    slides.forEach(function (slide, i) {
+      slide.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+    });
+
+    root.addEventListener('mouseenter', function () {
+      paused = true;
+      stopCarousel();
+    });
+    root.addEventListener('mouseleave', function () {
+      paused = false;
+      startCarousel();
+    });
+    root.addEventListener('focusin', function () {
+      paused = true;
+      stopCarousel();
+    });
+    root.addEventListener('focusout', function (event) {
+      var nextTarget = (event as FocusEvent).relatedTarget;
+      if (nextTarget instanceof Node && root.contains(nextTarget)) {
+        return;
+      }
+      paused = false;
+      startCarousel();
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        stopCarousel();
+      } else {
+        startCarousel();
+      }
+    });
+
+    startCarousel();
+  }
+
   /* Highlight current page in navigation */
   var currentPage = document.body.getAttribute('data-page');
   if (currentPage) {
