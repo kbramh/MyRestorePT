@@ -264,12 +264,15 @@ main .search-highlight {
   font-family: var(--font-logo);
   font-size: 22px;
   font-weight: bold;
-  color: var(--color-primary);
 }
 
 .logo:hover {
   color: var(--color-link);
   text-decoration: none;
+}
+
+.logo_word {
+  color: #81c0f3;
 }
 
 /* Navigation (.wp-menu / .mirrormenu) */
