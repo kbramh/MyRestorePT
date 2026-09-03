@@ -323,7 +323,7 @@ main .search-highlight {
 /* Header image (.headerimage) */
 .header-image {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 6rem;
   padding: 6px;
   background: #eef6fc;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
@@ -375,6 +375,18 @@ main {
 .content-section.notice .highlight {
   color: var(--color-highlight);
   font-weight: normal;
+}
+
+body[data-page='contact'] .header-image {
+  margin-bottom: 0;
+}
+
+.contact_form_greeting {
+  color: #81c0f3;
+  display: block;
+  font-size: 28px;
+  text-align: center;
+  margin: 4.5rem 4.5rem 5rem;
 }
 
 .reviews {
@@ -503,7 +515,7 @@ main {
   font-family: var(--font-heading);
   font-size: clamp(22px, 4vw, 36px);
   font-style: italic;
-  color: var(--color-faq);
+  color: #81c0f3;
   margin-bottom: 2rem;
   line-height: 1.4;
 }
@@ -514,8 +526,8 @@ main {
 
 .resource-item h2 {
   font-family: var(--font-heading);
-  font-size: clamp(24px, 4vw, 36px);
-  color: var(--color-faq);
+  font-size: clamp(18px, 3vw, 24px);
+  color: #81c0f3;
   margin: 0 0 0.5rem;
   font-weight: bold;
 }
@@ -534,10 +546,10 @@ main {
 /* Contact */
 .contact-info {
   text-align: center;
-  font-size: 26px;
-  color: var(--color-primary);
+  font-size: 16px;
+  color: #81c0f3;
   margin-bottom: 2rem;
-  line-height: 1.5;
+  line-height: 2.5;
 }
 
 .contact-info p {
