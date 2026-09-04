@@ -1,7 +1,7 @@
 /* Restore Physical Therapy — shared site styles
    Color palette matched to myrestorept.com template (style.min.css) */
 
-@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   /* Template / skin colors (style.min.css) */
@@ -24,9 +24,10 @@
   --color-faq: #0033ff;
 
   --max-width: 960px;
-  --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-heading: 'Arvo', Georgia, serif;
-  --font-logo: 'Comic Sans MS', cursive, sans-serif;
+  --font: 'Source Sans 3', Helvetica, Arial, sans-serif;
+  --font-body: var(--font);
+  --font-heading: var(--font);
+  --font-logo: var(--font);
 }
 
 *,
@@ -263,12 +264,15 @@ main .search-highlight {
   font-family: var(--font-logo);
   font-size: 22px;
   font-weight: bold;
-  color: var(--color-primary);
 }
 
 .logo:hover {
   color: var(--color-link);
   text-decoration: none;
+}
+
+.logo_word {
+  color: #81c0f3;
 }
 
 /* Navigation (.wp-menu / .mirrormenu) */
@@ -319,20 +323,21 @@ main .search-highlight {
 /* Header image (.headerimage) */
 .header-image {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 6rem;
   padding: 6px;
-  background: #fff;
+  background: #eef6fc;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
 }
 
 .header-image img {
   margin: 0 auto;
   border: 0;
+  border-radius: 14px;
   max-height: 200px;
   width: auto;
 }
 
-/* Main content (#content) */
 main {
   min-height: 300px;
   padding: 0.5rem 0 2rem;
@@ -370,6 +375,86 @@ main {
 .content-section.notice .highlight {
   color: var(--color-highlight);
   font-weight: normal;
+}
+
+body[data-page='contact'] .header-image {
+  margin-bottom: 0;
+}
+
+.contact_form_greeting {
+  color: #81c0f3;
+  display: block;
+  font-size: 28px;
+  text-align: center;
+  margin: 4.5rem 4.5rem 5rem;
+}
+
+.reviews {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.reviews-viewport {
+  display: grid;
+}
+
+.review-slide {
+  grid-area: 1 / 1;
+  margin: 0;
+  padding: 0 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.review-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.review-slide::before {
+  content: '“';
+  display: block;
+  font-size: 3.5rem;
+  line-height: 0.8;
+  color: var(--color-link);
+  margin-bottom: 0.35rem;
+}
+
+.review-slide::after {
+  content: '”';
+  display: block;
+  font-size: 3.5rem;
+  line-height: 0.8;
+  color: var(--color-link);
+  margin-top: 2.35rem;
+}
+
+.review-slide footer {
+  margin-top: 32px;
+  padding-right: 16px;
+  text-align: left;
+}
+
+.review-slide cite {
+  font-size: 1.2rem;
+}
+
+.reviews .review-slide p {
+  margin: 0;
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-slide {
+    transition: none;
+  }
 }
 
 .text-restore {
@@ -430,7 +515,7 @@ main {
   font-family: var(--font-heading);
   font-size: clamp(22px, 4vw, 36px);
   font-style: italic;
-  color: var(--color-faq);
+  color: #81c0f3;
   margin-bottom: 2rem;
   line-height: 1.4;
 }
@@ -441,8 +526,8 @@ main {
 
 .resource-item h2 {
   font-family: var(--font-heading);
-  font-size: clamp(24px, 4vw, 36px);
-  color: var(--color-faq);
+  font-size: clamp(18px, 3vw, 24px);
+  color: #81c0f3;
   margin: 0 0 0.5rem;
   font-weight: bold;
 }
@@ -461,10 +546,10 @@ main {
 /* Contact */
 .contact-info {
   text-align: center;
-  font-size: 26px;
-  color: var(--color-primary);
+  font-size: 16px;
+  color: #81c0f3;
   margin-bottom: 2rem;
-  line-height: 1.5;
+  line-height: 2.5;
 }
 
 .contact-info p {
@@ -572,7 +657,7 @@ main {
   padding: 6px 24px;
   font-size: 15px;
   font-weight: bold;
-  font-family: Arial, sans-serif;
+  font-family: var(--font);
   border-radius: 6px;
   cursor: pointer;
   box-shadow: 0 0 5px #000;

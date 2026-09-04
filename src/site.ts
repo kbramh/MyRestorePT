@@ -41,16 +41,83 @@
     }
   }
 
+  var reviews = document.querySelector('.reviews');
+  if (reviews) {
+    const slides = document.querySelectorAll<HTMLElement>('.review-slide');
+    var reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    let index = 0;
+    let paused = false;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    function showSlide(i: number) {
+      var current = slides[index];
+      if (current) {
+        current.classList.remove('is-active');
+        current.setAttribute('aria-hidden', 'true');
+      }
+      index = (i + slides.length) % slides.length;
+      var nextSlide = slides[index];
+      if (nextSlide) {
+        nextSlide.classList.add('is-active');
+        nextSlide.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function stopCarousel() {
+      if (timer !== undefined) {
+        clearInterval(timer);
+        timer = undefined;
+      }
+    }
+
+    function startCarousel() {
+      if (reduceMotion || slides.length < 2 || paused) {
+        return;
+      }
+      stopCarousel();
+      timer = setInterval(function () {
+        showSlide(index + 1);
+      }, 30000);
+    }
+
+    reviews.addEventListener('mouseenter', function () {
+      paused = true;
+      stopCarousel();
+    });
+    reviews.addEventListener('mouseleave', function () {
+      paused = false;
+      startCarousel();
+    });
+    reviews.addEventListener('focusin', function () {
+      paused = true;
+      stopCarousel();
+    });
+    reviews.addEventListener('focusout', function (event) {
+      var nextTarget = (event as FocusEvent).relatedTarget;
+      if (nextTarget instanceof Node && reviews!.contains(nextTarget)) {
+        return;
+      }
+      paused = false;
+      startCarousel();
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        stopCarousel();
+      } else {
+        startCarousel();
+      }
+    });
+
+    startCarousel();
+  }
+
   /* Highlight current page in navigation */
   var currentPage = document.body.getAttribute('data-page');
   if (currentPage) {
-    var navLinks = document.querySelectorAll(
-      '.main-nav a[data-page="' +
-        currentPage +
-        '"], .footer-nav a[data-page="' +
-        currentPage +
-        '"]',
-    );
+    const navLinks = document.querySelectorAll(`.main-nav a[data-page="${currentPage}"], .footer-nav a[data-page="${currentPage}"]`)
     navLinks.forEach(function (link) {
       link.classList.add('is-current');
     });
