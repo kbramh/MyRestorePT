@@ -2,9 +2,9 @@
   'use strict';
 
   /* Mobile contact panel toggle */
-  var openBtn = document.getElementById('open')!;
-  var closeBtn = document.getElementById('close')!;
-  var panel = document.getElementById('panel')!;
+  const openBtn = document.getElementById('open')!;
+  const closeBtn = document.getElementById('close')!;
+  const panel = document.getElementById('panel')!;
 
   if (openBtn && closeBtn && panel) {
     openBtn.addEventListener('click', function () {
@@ -23,10 +23,10 @@
   }
 
   /* Contact form submission feedback */
-  var contactStatus = document.getElementById('contact-form-status');
+  const contactStatus = document.getElementById('contact-form-status');
   if (contactStatus) {
-    var status = new URLSearchParams(window.location.search).get('status');
-    var messages = {
+    const status = new URLSearchParams(window.location.search).get('status');
+    const messages = {
       sent: 'Thank you. Your message has been sent.',
       error:
         'Sorry, we could not send your message. Please call us at 253-446-6507.',
@@ -41,10 +41,10 @@
     }
   }
 
-  var reviews = document.querySelector('.reviews');
+  const reviews = document.querySelector('.reviews');
   if (reviews) {
     const slides = document.querySelectorAll<HTMLElement>('.review-slide');
-    var reduceMotion = window.matchMedia(
+    const reduceMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches;
     let index = 0;
@@ -52,13 +52,13 @@
     let timer: ReturnType<typeof setInterval> | undefined;
 
     function showSlide(i: number) {
-      var current = slides[index];
+      const current = slides[index];
       if (current) {
         current.classList.remove('is-active');
         current.setAttribute('aria-hidden', 'true');
       }
       index = (i + slides.length) % slides.length;
-      var nextSlide = slides[index];
+      const nextSlide = slides[index];
       if (nextSlide) {
         nextSlide.classList.add('is-active');
         nextSlide.setAttribute('aria-hidden', 'false');
@@ -73,7 +73,7 @@
     }
 
     function startCarousel() {
-      if (reduceMotion || slides.length < 2 || paused) {
+      if (reduceMotion || paused) {
         return;
       }
       stopCarousel();
@@ -95,7 +95,7 @@
       stopCarousel();
     });
     reviews.addEventListener('focusout', function (event) {
-      var nextTarget = (event as FocusEvent).relatedTarget;
+      const nextTarget = (event as FocusEvent).relatedTarget;
       if (nextTarget instanceof Node && reviews!.contains(nextTarget)) {
         return;
       }
@@ -115,9 +115,11 @@
   }
 
   /* Highlight current page in navigation */
-  var currentPage = document.body.getAttribute('data-page');
+  const currentPage = document.body.getAttribute('data-page');
   if (currentPage) {
-    const navLinks = document.querySelectorAll(`.main-nav a[data-page="${currentPage}"], .footer-nav a[data-page="${currentPage}"]`)
+    const navLinks = document.querySelectorAll(
+      `.main-nav a[data-page="${currentPage}"], .footer-nav a[data-page="${currentPage}"]`,
+    );
     navLinks.forEach(function (link) {
       link.classList.add('is-current');
     });
